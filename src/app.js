@@ -1,5 +1,6 @@
 import express from "express";
 import db from "./config/dbConnect.js";
+import despesas from "./models/Despesa.js";
 
 db.on("error", console.log.bind(console, 'Erro de conexão'))
 db.once("open", () => {
@@ -9,17 +10,18 @@ db.once("open", () => {
 const app = express();
 app.use(express.json());
 
-const despesas = [
-    {id: 1, descricao: "Luz", valor: 168.01},
-    {id: 2, descricao: "Água", valor: 172.58}
-];
-
 app.get('/', (req, res) => {
     res.status(200).send('Selfie Financeira - API');
 });
 
 app.get('/despesas', (req, res) => {
-    res.status(200).json(despesas);
+    despesas.find()
+        .then((result) => {
+            res.status(200).json(result);
+        })
+        .catch((err) => {
+            console.error(err);
+        });
 });
 
 app.get('/despesas/:id', (req, res) => {
