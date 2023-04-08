@@ -3,7 +3,7 @@ import despesas from "../models/Despesa.js";
 class DespesaController {
 
     static listarDespesas = (req, res) => {
-        despesas.find().then(result => {
+        despesas.find().populate('grupo').exec().then(result => {
             res.status(200).json(result);
         }).catch(err => {
             console.error(err);
@@ -12,10 +12,19 @@ class DespesaController {
 
     static listarDespesaPorId = (req, res) => {
         const id = req.params.id;
-        despesas.findById(id).then(result => {
+        despesas.findById(id).populate('grupo', 'nome').then(result => {
             res.status(200).send(result);
         }).catch(err => {
             res.status(400).send({message: `${err.message} - Id da despesa não localizado.`})
+        });
+    }
+
+    static listarDespesasPorGrupo = (req, res) => {
+        const grupo = req.query.grupo;
+        despesas.find({'grupo': grupo}).then(result => {
+            res.status(200).send(result);
+        }).catch(err => {
+            res.status(400).send({message: `${err.message} - Despesa não localizado.`})
         });
     }
 

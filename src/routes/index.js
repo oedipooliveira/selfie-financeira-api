@@ -1,5 +1,6 @@
 import express from "express";
 import DespesaRouter from "./despesasRoutes.js";
+import GrupoRouter from "./gruposRoutes.js";
 
 const routes = (app) => {
     app.route('/').get((req, res) => {
@@ -8,7 +9,8 @@ const routes = (app) => {
 
     app.use(
         express.json(),
-        DespesaRouter
+        DespesaRouter,
+        GrupoRouter
     );
 }
 
