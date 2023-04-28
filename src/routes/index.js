@@ -3,6 +3,7 @@ import cors from 'cors';
 import DespesaRouter from "./despesasRoutes.js";
 import ReceitaRouter from "./receitasRoutes.js";
 import GrupoRouter from "./gruposRoutes.js";
+import MetaRouter from "./metasRoutes.js";
 
 const routes = (app) => {
     app.use(cors());
@@ -15,7 +16,8 @@ const routes = (app) => {
         express.json(),
         DespesaRouter,
         ReceitaRouter,
-        GrupoRouter
+        GrupoRouter,
+        MetaRouter
     );
 }
 
