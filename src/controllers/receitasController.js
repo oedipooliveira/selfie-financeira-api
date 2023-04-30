@@ -57,6 +57,22 @@ class ReceitaController {
         });
     }
 
+    static totalReceitas = (req, res) => {
+        receitas.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    total: {$sum: "$valor"}
+                }
+            }
+        ]).then(result => {
+            const totalReceitas = result[0].total;
+            res.status(200).json({ totalReceitas });
+        }).catch(err => {
+            res.status(500).send({message: `${err.message} - falha ao calcular o total das receitas.`});
+        });
+     }
+
 }
 
 export default ReceitaController;

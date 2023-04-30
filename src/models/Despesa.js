@@ -6,7 +6,8 @@ const despesaSchema = new mongoose.Schema(
         descricao: {type: String, required: true},
         valor: {type: Number, required: true},
         vencimento: {type: Date, required: true},
-        grupo: {type: mongoose.Schema.Types.ObjectId, ref: 'grupos', required: false},
+        grupo: {type: mongoose.Schema.Types.ObjectId, ref: 'grupos', required: true},
+        formaPagamento: {type: String, required: false},
     }
 );
 
