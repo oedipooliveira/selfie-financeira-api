@@ -4,6 +4,7 @@ import DespesaRouter from "./despesasRoutes.js";
 import ReceitaRouter from "./receitasRoutes.js";
 import GrupoRouter from "./gruposRoutes.js";
 import MetaRouter from "./metasRoutes.js";
+import UsuarioRouter from "./usuariosRoutes.js";
 
 const routes = (app) => {
     app.use(cors());
@@ -17,7 +18,8 @@ const routes = (app) => {
         DespesaRouter,
         ReceitaRouter,
         GrupoRouter,
-        MetaRouter
+        MetaRouter,
+        UsuarioRouter
     );
 }
 
