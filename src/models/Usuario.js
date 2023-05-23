@@ -8,3 +8,7 @@ const usuarioSchema = new mongoose.Schema(
         senha: {type: String, required: true},
     }
 );
+
+const usuarios = mongoose.model('usuarios', usuarioSchema);
+
+export default usuarios;
