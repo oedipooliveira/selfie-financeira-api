@@ -19,7 +19,7 @@ class UsuarioController {
         });
     }
 
-    static cadastrarUsuarios = (req, res) => {
+    static cadastrarUsuario = (req, res) => {
         let usuario = new usuarios(req.body);
         usuario.save().then(result => {
             res.status(201).send(usuario.toJSON());
