@@ -1,6 +1,22 @@
 import usuarios from "../models/Usuario.js";
+import jwt from "jsonwebtoken";
 
 class UsuarioController {
+
+    static createToken = (payload, expiresIn = '12h') => {
+        const SECRET_KEY = '123456789';
+        return jwt.sign(payload, SECRET_KEY, { expiresIn })
+    }
+
+    static logar = (req, res) => {
+        let { email, senha } = req.body;
+        usuarios.findOne({ email, senha }).then(result => {
+            let access_token = UsuarioController.createToken({ email, senha })
+            res.status(200).send({ access_token });
+        }).catch(err => {
+            res.status(400).send({message: `${err.message} - Usuário não localizado.`});
+        });
+    }
 
     static cadastrarUsuario = (req, res) => {
         let usuario = new usuarios(req.body);
