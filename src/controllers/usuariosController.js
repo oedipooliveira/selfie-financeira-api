@@ -8,6 +8,11 @@ class UsuarioController {
         return jwt.sign(payload, SECRET_KEY, { expiresIn })
     }
 
+    static verifyToken = (token) => {
+        const SECRET_KEY = '123456789';
+        return jwt.verify(token, SECRET_KEY, (err, decode) => decode !== undefined ? decode : err)
+    }
+
     static logar = (req, res) => {
         let { email, senha } = req.body;
         usuarios.findOne({ email, senha }).then(result => {

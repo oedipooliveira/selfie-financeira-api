@@ -7,6 +7,18 @@ import MetaRouter from "./metasRoutes.js";
 import UsuarioRouter from "./usuariosRoutes.js";
 
 const routes = (app) => {
+    app.use((req, res, next) => {
+        if (['/usuarios', '/logar'].some(path => req.path.includes(path)) === false && req.method !== 'OPTIONS') {
+            if (req.headers.authorization === undefined || !req.headers.authorization.startsWith('Bearer ')) {
+                const status = 401;
+                const message = 'Token inválido';
+                res.status(status).json({ status, message });
+                return;
+            }
+        }
+        next();
+    });
+
     app.use(cors());
     
     app.route('/').get((req, res) => {
